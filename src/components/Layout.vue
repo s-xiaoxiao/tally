@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div class="content">
+  <div class="layout-wrapper">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot></slot>
     </div>
     <Nav/>
@@ -9,12 +9,13 @@
 
 <script lang="ts">
   export default {
+    props:['classPrefix'],
     name: 'Layout'
   };
 </script>
 
 <style lang="scss" scoped>
-  .wrapper{
+  .layout-wrapper{
     display: flex;  //使用flex布局
     flex-direction: column; //方向是上下形式
     height: 100vh;  //高度100 vh是view Height
