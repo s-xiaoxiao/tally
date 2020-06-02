@@ -6,50 +6,38 @@
       </button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li>
-      <li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li><li>衣</li>
-      <li>住</li>
-      <li>行</li>
-      <li>食</li>
+      <li v-for="tag in dataSource" :key="tag" @click="select(tag)"
+          :class="{selected : selectedTags.indexOf(tag) >= 0 }">{{tag}}
+      </li>
     </ul>
   </div>
 
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Tags'
-  };
+
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
+
+  @Component
+  export default class Tags extends Vue {
+    @Prop() dataSource: string[] | undefined;
+    selectedTags: string[] = [];
+
+    select(tag: string) {
+      if (this.selectedTags.length >= 1 && this.selectedTags[0] !== tag) {
+        return;
+      } else {
+        const index = this.selectedTags.indexOf(tag);
+        if (index >= 0) {
+          this.selectedTags.splice(index, 1);
+        } else {
+          this.selectedTags.push(tag);
+        }
+      }
+    }
+
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -59,12 +47,15 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column-reverse;
+
     > .current {
       display: flex;
       flex-wrap: wrap;
       overflow: auto;
+
       li {
-        background: #d9d9d9;
+        $bg: #d9d9d9;
+        background: $bg;
         $h: 24px;
         height: $h;
         line-height: $h;
@@ -72,8 +63,14 @@
         padding: 0 16px;
         margin-right: 12px;
         margin-top: 4px;
+
+        &.selected {
+          color: white;
+          background: darken($bg, 50);
+        }
       }
     }
+
     > .new {
       padding-top: 16px;
 
