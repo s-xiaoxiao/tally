@@ -4,7 +4,7 @@
     <Types :type.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-    {{record}}
+    {{recordList}}
   </Layout>
 </template>
 
@@ -17,11 +17,26 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
+  const version = window.localStorage.getItem('version') || '0';
+  const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]') ;
+
+  if(version === '0.0.1'){
+    //数据升级  //数据迁移
+    recordList.forEach(record =>{
+      record.createdAt = new Date(2020,0,1)
+    })
+    //保存数据
+    window.localStorage.setItem('recordList',JSON.stringify(recordList))
+  }
+
+  window.localStorage.setItem('version','0.0.2');
+
   type Record = {
     tags: string[];
     notes: string;
     type: string;
     amount: number;
+    createdAt?: Date;
   }
 
   @Component({
@@ -35,7 +50,7 @@
       type: '-',
       amount: 0
     };
-    recordList: Record[] = [];
+    recordList: Record[] = recordList;
     onUpdateTags(tags: string[]) {
       console.log(tags, typeof tags);
       this.record.tags = tags;
@@ -54,9 +69,10 @@
       if(this.tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{
-        const record2 = JSON.parse(JSON.stringify(this.record))
+        const record2: Record = JSON.parse(JSON.stringify(this.record))
+        record2.createdAt = new Date();
         this.recordList.push(record2)
-        window.localStorage.setItem('record',JSON.stringify(this.recordList))
+        window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
       }
     }
 
