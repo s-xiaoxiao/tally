@@ -9,7 +9,6 @@
       </li>
     </ul>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -18,9 +17,9 @@
 
   @Component
   export default class Types extends Vue {
-    type = '-'; // ‘-’ 支出 ‘+’ 收入
+     // ‘-’ 支出 ‘+’ 收入
 
-    @Prop(Number) xxx: number | undefined;
+    @Prop() readonly type!: string;
     //Prop 告诉vue xxx 不是data 是prop
     //Number 告诉 vue 运行时 xxx是Number类型
     //xxx 属性名
@@ -29,10 +28,7 @@
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknow');
       }
-      this.type = type;
-    }
-    mounted(){
-      console.log(this.xxx);
+      this.$emit('update:type',type)
     }
   }
   //JS对象写法

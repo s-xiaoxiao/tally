@@ -161,6 +161,7 @@
     }
 
     confirm() {
+      let sum = 0;
       if (this.output === '0') {
         return;
       }
@@ -170,7 +171,7 @@
         if(oldOutPut[1]===''){
           return
         }
-        const sum: number = parseFloat(oldOutPut[0]) + parseFloat(oldOutPut[1]);
+         sum = parseFloat(oldOutPut[0]) + parseFloat(oldOutPut[1]);
         this.output = sum.toString();
         this.equalSign = true;
         return
@@ -181,7 +182,7 @@
         if(oldOutPut[1]===''){
           return
         }
-        const sum: number = parseFloat(oldOutPut[0]) - parseFloat(oldOutPut[1]);
+         sum = parseFloat(oldOutPut[0]) - parseFloat(oldOutPut[1]);
         if(sum>0){
           this.output = sum.toString();
           this.equalSign = true;
@@ -191,6 +192,9 @@
           this.equalSign = true;
           return
         }
+      }
+      if(this.equalSign && sum>0 || this.equalSign && parseFloat(this.output)>0){
+        this.$emit('update:value',parseFloat(this.output))
       }
     }
   }

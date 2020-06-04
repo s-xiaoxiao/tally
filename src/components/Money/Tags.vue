@@ -33,6 +33,7 @@
           this.selectedTags.splice(index, 1);
         } else {
           this.selectedTags.push(tag);
+          this.$emit('update:value',this.selectedTags)
         }
       }
     }
