@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>
+      <button @click="create">
         新增标签
       </button>
     </div>
@@ -37,6 +37,17 @@
       }
     }
 
+    create(){
+      const name = window.prompt('输入标签名')
+
+      if(name === ''){
+        window.alert('不能为空')
+      }else if (name && this.dataSource && this.dataSource?.indexOf(name)<=0){
+        this.dataSource && this.$emit('update:dataSource',[...this.dataSource,name])
+      }else {
+        window.alert('标签名重复了')
+      }
+    }
   }
 </script>
 
