@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :type.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
@@ -35,7 +35,7 @@
       type: '-',
       amount: 0
     };
-
+    recordList: Record[] = [];
     onUpdateTags(tags: string[]) {
       console.log(tags, typeof tags);
       this.record.tags = tags;
@@ -49,6 +49,17 @@
       console.log(value, typeof value);
       this.record.amount = value;
     }
+    saveRecord(){
+
+      if(this.tags.indexOf(this.record.tags[0]) < 0){
+        window.alert('请选择标签')
+      }else{
+        const record2 = JSON.parse(JSON.stringify(this.record))
+        this.recordList.push(record2)
+        window.localStorage.setItem('record',JSON.stringify(this.recordList))
+      }
+    }
+
   }
 
 </script>

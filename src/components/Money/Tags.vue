@@ -22,20 +22,18 @@
   @Component
   export default class Tags extends Vue {
     @Prop() dataSource: string[] | undefined;
+
     selectedTags: string[] = [];
 
     select(tag: string) {
-      if (this.selectedTags.length >= 1 && this.selectedTags[0] !== tag) {
-        return;
+      if (this.selectedTags.length >= 1 && this.selectedTags[0] !==tag) {
+        this.selectedTags.pop()
+        this.selectedTags.push(tag);
+        this.$emit('update:value',this.selectedTags)
       } else {
-        const index = this.selectedTags.indexOf(tag);
-        if (index >= 0) {
-          this.selectedTags.splice(index, 1);
-        } else {
           this.selectedTags.push(tag);
           this.$emit('update:value',this.selectedTags)
         }
-      }
     }
 
     create(){
