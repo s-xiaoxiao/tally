@@ -21,9 +21,8 @@
 
   const recordList = recordListModel.fetch();
 
-  const tagList = tagListModel.fetch();
+  const tagList = tagListModel.fetch().map((item)=>item.name);
 
-  console.log(tagList);
 
   // const version = window.localStorage.getItem('version') || '0';
   // if(version === '0.0.1'){
