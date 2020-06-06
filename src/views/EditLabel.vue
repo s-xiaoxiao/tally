@@ -8,7 +8,6 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import tagListModel from '@/models/tagListModel';
-  // import Layout from '@/components/Layout.vue';
 
   @Component
   export default class EditLabel extends Vue {

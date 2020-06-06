@@ -9,9 +9,10 @@ import EditLabel from '@/views/EditLabel.vue';
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
+
   {
     path:'/',
-    redirect:'/Money'
+    redirect:'/money'
   },
   {
     path:'/money',
@@ -26,8 +27,8 @@ const routes: Array<RouteConfig> = [
     component:Statistics
   },
   {
-    path:'/labels/edit/:id',
-    component:EditLabel
+    path: '/labels/edit/:id',
+    component: EditLabel
   },
   {
     path:'*',
