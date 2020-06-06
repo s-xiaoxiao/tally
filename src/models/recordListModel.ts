@@ -1,5 +1,5 @@
 const localStorageKeyName = 'recordList'
-const model = {
+const recordListModel = {
   alone(data: RecordItem){
     return JSON.parse(JSON.stringify(data)) as RecordItem;
   },
@@ -12,4 +12,4 @@ const model = {
 
 }
 
-export default model
+export default recordListModel

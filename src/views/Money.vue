@@ -12,12 +12,18 @@
   import Notes from '@/components/Money/Notes.vue';
   import Types from '@/components/Money/Types.vue';
   import Tags from '@/components/Money/Tags.vue';
+
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
-  import model from '@/model';
+  import recordListModel from '@/models/recordListModel';
+  import tagListModel from '@/models/tagListModel';
 
-  const recordList = model.fetch();
+  const recordList = recordListModel.fetch();
+
+  const tagList = tagListModel.fetch();
+
+  console.log(tagList);
 
   // const version = window.localStorage.getItem('version') || '0';
   // if(version === '0.0.1'){
@@ -29,11 +35,14 @@
   //   window.localStorage.setItem('recordList',JSON.stringify(recordList))
   // }
   // window.localStorage.setItem('version','0.0.2');
+
+
   @Component({
     components: {Tags, Types, Notes, NumberPad}
   })
   export default class Money extends Vue {
-    tags = ['衣', '食', '住', '行'];
+    tags = tagList;
+
     record: RecordItem = {
       tags: [],
       notes: '',
@@ -59,10 +68,10 @@
       if(this.tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{
-        const record2 = model.alone(this.record)
+        const record2 = recordListModel.alone(this.record)
         record2.createdAt = new Date();
         this.recordList.push(record2)
-        model.save(this.recordList)
+        recordListModel.save(this.recordList)
       }
     }
 

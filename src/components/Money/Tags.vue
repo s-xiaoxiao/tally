@@ -26,7 +26,7 @@
     selectedTags: string[] = [];
 
     select(tag: string) {
-      if (this.selectedTags.length >= 1 && this.selectedTags[0] !==tag) {
+      if (this.selectedTags.length >= 1 && this.selectedTags[0] === tag) {
         this.selectedTags.pop()
         this.selectedTags.push(tag);
         this.$emit('update:value',this.selectedTags)
