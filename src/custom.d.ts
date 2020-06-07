@@ -6,3 +6,8 @@ type RecordItem = {
   createdAt?: Date;
 }
 // ? 是 | undefined 的语法糖
+
+type Tag = {
+  id: string;
+  name: string;
+}

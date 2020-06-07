@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <button class="createTag" @click="createdTag"> 添加标签</button>
+      <Button  @click="createdTag"> 添加标签</Button>
     </div>
   </Layout>
 </template>
@@ -15,21 +15,19 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator';
   import tagListModel from '@/models/tagListModel';
+  import Button from '@/components/Button.vue';
 
   tagListModel.fetch();
-
-  @Component
+  @Component({
+    components: {Button}
+  })
   export default class Labels extends Vue{
     tags = tagListModel.data;
     createdTag(){
       const name = window.prompt('输入标签名')
-
-
       if(name){
         const message = tagListModel.create(name)
-
         console.log(message);
-
         if(message === 'duplicated'){
           window.alert('标签名重复')
           this.createdTag()
