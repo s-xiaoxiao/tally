@@ -8,10 +8,13 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" field-name="标签名" placeholder="请输入标签名" />
+      <FormItem :value="tag.name" @update:value="update" field-name="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <router-link to="/labels">
+
+      <Button @click="remove">删除标签</Button>
+      </router-link>
     </div>
   </Layout>
 </template>
@@ -37,6 +40,12 @@
       }else{
         this.$router.replace('/404')
       }
+    }
+    update(name: string){
+      this.tag && tagListModel.update(this.tag.id,name);
+    }
+    remove(){
+      this.tag && tagListModel.remove(this.tag.id);
     }
   }
 </script>
