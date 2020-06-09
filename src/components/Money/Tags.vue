@@ -6,8 +6,8 @@
       </button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag" @click="select(tag)"
-          :class="{selected : selectedTags.indexOf(tag) >= 0 }">{{tag}}
+      <li v-for="tag in dataSource" :key="tag.id" @click="select(tag)"
+          :class="{selected : selectedTags.indexOf(tag.name) >= 0 }">{{tag.name}}
       </li>
     </ul>
   </div>
@@ -21,28 +21,35 @@
 
   @Component
   export default class Tags extends Vue {
-    @Prop() dataSource: string[] | undefined;
+    @Prop() dataSource: Tag[] | undefined;
 
     selectedTags: string[] = [];
 
-    select(tag: string) {
-      if (this.selectedTags.length >= 1 && this.selectedTags[0] === tag) {
-        this.selectedTags.pop()
-        this.selectedTags.push(tag);
-        this.$emit('update:value',this.selectedTags)
-      } else {
-          this.selectedTags.push(tag);
+    select(tag: Tag) {
+      console.log(typeof tag.name);
+      console.log(this.selectedTags);
+      if (this.selectedTags.length >= 1 ) {
+        if(this.selectedTags[0] !== tag.name){
+          this.selectedTags.pop()
+          this.selectedTags.push(tag.name);
+          this.$emit('update:value',this.selectedTags)
+        }else{
+          this.selectedTags.pop();
           this.$emit('update:value',this.selectedTags)
         }
+      }else{
+        this.selectedTags.push(tag.name);
+        this.$emit('update:value',this.selectedTags)
+      }
     }
 
     create(){
       const name = window.prompt('输入标签名')
-
+      const data = this.dataSource?.map(t => t.name)
       if(name === ''){
         window.alert('不能为空')
-      }else if (name && this.dataSource && this.dataSource?.indexOf(name)<=0){
-        this.dataSource && this.$emit('update:dataSource',[...this.dataSource,name])
+      }else if (name && data && data?.indexOf(name)<=0){
+        this.dataSource && this.$emit('update:dataSource',[...this.dataSource,{id:name,name:name}])
       }else {
         window.alert('标签名重复了')
       }
