@@ -70,10 +70,8 @@
       if(tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{
-        const record2 = recordListModel.alone(this.record)
-        record2.createdAt = new Date();
-        this.recordList.push(record2)
-        recordListModel.save(this.recordList)
+        recordListModel.create(this.record)
+        recordListModel.save()
       }
     }
 
