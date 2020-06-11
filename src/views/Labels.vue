@@ -26,12 +26,7 @@
     createdTag(){
       const name = window.prompt('输入标签名')
       if(name){
-        const message = tagListModel.create(name)
-        console.log(message);
-        if(message === 'duplicated'){
-          window.alert('标签名重复')
-          this.createdTag()
-        }
+        window.createdTag(name)
       }
     }
   }
