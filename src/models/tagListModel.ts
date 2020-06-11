@@ -54,6 +54,7 @@ const tagListModel: TagListModel = {
     }
     this.data.splice(index,1)
     this.save()
+    window.tagList = this.fetch()
     return true;
   },
   save(){

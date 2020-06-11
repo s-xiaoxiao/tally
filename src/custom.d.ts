@@ -11,3 +11,7 @@ type Tag = {
   id: string;
   name: string;
 }
+
+interface Window {
+  tagList: Tag[];
+}

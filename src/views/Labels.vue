@@ -22,7 +22,7 @@
     components: {Button}
   })
   export default class Labels extends Vue{
-    tags = tagListModel.data;
+    tags = window.tagList;
     createdTag(){
       const name = window.prompt('输入标签名')
       if(name){

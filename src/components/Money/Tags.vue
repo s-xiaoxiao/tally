@@ -18,6 +18,8 @@
 
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import tagListModel from '@/models/tagListModel';
+  import createdId from '@/lib/createdId';
 
   @Component
   export default class Tags extends Vue {
@@ -46,12 +48,14 @@
     create(){
       const name = window.prompt('输入标签名')
       const data = this.dataSource?.map(t => t.name)
-      if(name === ''){
+      if(name === '' || name === null){
         window.alert('不能为空')
-      }else if (name && data && data?.indexOf(name)<=0){
-        this.dataSource && this.$emit('update:dataSource',[...this.dataSource,{id:name,name:name}])
-      }else {
+      } else if (name && data && data?.indexOf(name)<=0){
+        tagListModel.create(name)
+        // this.dataSource && this.$emit('update:dataSource',[...this.dataSource,{id:createdId(),name:name}])
+      }else{
         window.alert('标签名重复了')
+        this.create();
       }
     }
   }
