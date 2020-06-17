@@ -17,9 +17,8 @@
   import Tags from '@/components/Money/Tags.vue';
 
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
 
-  import recordListModel from '@/models/recordListModel';
 
 
 
@@ -66,13 +65,8 @@
       if(tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{
-        recordListModel.create(this.record)
-        recordListModel.save()
+        window.createRecord(this.record)
       }
-    }
-    @Watch('tags')
-    onTagsChanged(){
-      console.log(this.tags);
     }
   }
 
