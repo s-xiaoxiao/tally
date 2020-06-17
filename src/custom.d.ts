@@ -11,8 +11,18 @@ type Tag = {
   id: string;
   name: string;
 }
-
+type TagListModel = {
+  data: Tag[];
+  fetch: () => Tag[];
+  create: (name: string) => 'success' | 'duplicated';
+  update: (id: string,name: string) => 'success' | 'duplicated' | 'not found' | undefined;
+  remove: (id: string) => boolean;
+  save: () => void;
+}
 interface Window {
   tagList: Tag[];
+  findTag: (id: string) => Tag | undefined;
   createdTag: (name: string) => void;
+  removeTag: (id: string) => boolean;
+  updateTag: (id: string,name: string) => 'success' | 'duplicated' | 'not found' | undefined;
 }

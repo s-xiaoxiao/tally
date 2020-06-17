@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="navBar">
-      <router-link to="/labels">
+      <router-link :event="active ? 'click' : ''" to="/labels">
         <Icon name="left" class="leftIcon"></Icon>
       </router-link>
       <span class="title">编辑标签</span>
@@ -11,10 +11,7 @@
       <FormItem :value="tag.name" @update:value="update" field-name="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
-      <router-link to="/labels">
-
       <Button @click="remove">删除标签</Button>
-      </router-link>
     </div>
   </Layout>
 </template>
@@ -22,7 +19,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
   @Component({
@@ -30,22 +26,19 @@
   })
   export default class EditLabel extends Vue {
     tag?: Tag = undefined;
+    active = true;
     created(){
-      const id = this.$route.params.id
-      tagListModel.fetch();
-      const tags = tagListModel.data;
-      const tag = tags.filter( t => t.id === id)[0]
-      if(tag){
-        this.tag = tag;
-      }else{
+      if(!(this.tag=window.findTag(this.$route.params.id))){
         this.$router.replace('/404')
       }
     }
     update(name: string){
-      this.tag && tagListModel.update(this.tag.id,name);
+      console.log(name);
+      this.active = name !== '';
+      this.active && this.tag && console.log(window.updateTag(this.tag.id,name));
     }
     remove(){
-      this.tag && tagListModel.remove(this.tag.id);
+      this.tag && window.removeTag(this.tag.id) && this.$router.back();
     }
   }
 </script>
