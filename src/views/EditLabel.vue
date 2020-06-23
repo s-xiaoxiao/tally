@@ -21,6 +21,7 @@
   import {Component} from 'vue-property-decorator';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
+  import store from '@/store/store2';
   @Component({
     components: {Button, FormItem}
   })
@@ -28,17 +29,17 @@
     tag?: Tag = undefined;
     active = true;
     created(){
-      if(!(this.tag=window.findTag(this.$route.params.id))){
+      if(!(this.tag=store.findTag(this.$route.params.id))){
         this.$router.replace('/404')
       }
     }
     update(name: string){
       console.log(name);
       this.active = name !== '';
-      this.active && this.tag && console.log(window.updateTag(this.tag.id,name));
+      this.active && this.tag && console.log(store.updateTag(this.tag.id,name));
     }
     remove(){
-      this.tag && window.removeTag(this.tag.id) && this.$router.back();
+      this.tag && store.removeTag(this.tag.id) && this.$router.back();
     }
   }
 </script>
