@@ -5,7 +5,7 @@
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags  @update:value="onUpdateTags"/>
     {{this.record}}
   </Layout>
 </template>
@@ -38,8 +38,6 @@
     components: {Tags, Types,FormItem, NumberPad}
   })
   export default class Money extends Vue {
-    tags = store.tagList;
-
     record: RecordItem = {
       tags: [],
       notes: '',
@@ -60,7 +58,7 @@
       this.record.amount = value;
     }
     saveRecord(){
-      const tags = this.tags.map(t=> t.name)
+      const tags = store.tagList.map(t=> t.name)
       if(tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{

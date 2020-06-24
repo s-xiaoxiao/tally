@@ -6,7 +6,7 @@
       </button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id" @click="select(tag)"
+      <li v-for="tag in tagList" :key="tag.id" @click="select(tag)"
           :class="{selected : selectedTags.indexOf(tag.name) >= 0 }">{{tag.name}}
       </li>
     </ul>
@@ -17,12 +17,12 @@
 <script lang="ts">
 
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import store from '@/store/store2';
 
   @Component
   export default class Tags extends Vue {
-    @Prop() dataSource: Tag[] | undefined;
+    tagList = store.fetchTags();
 
     selectedTags: string[] = [];
 
@@ -43,7 +43,6 @@
         this.$emit('update:value',this.selectedTags)
       }
     }
-
     create(){
       store.createdTag()
     }
