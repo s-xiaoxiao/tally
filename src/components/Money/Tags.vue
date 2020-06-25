@@ -18,11 +18,16 @@
 
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/store2';
+  import store from '@/store/index';
 
   @Component
   export default class Tags extends Vue {
-    tagList = store.fetchTags();
+    get tagList(){
+      return store.state.tagList
+    }
+    created(){
+      this.$store.commit('fetchTags')
+    }
 
     selectedTags: string[] = [];
 
@@ -44,7 +49,7 @@
       }
     }
     create(){
-      store.createdTag()
+      this.$store.commit('createdTag')
     }
   }
 </script>

@@ -15,15 +15,21 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator';
   import Button from '@/components/Button.vue';
-  import store from '@/store/store2';
+  import store from '@/store/index';
 
   @Component({
     components: {Button}
   })
   export default class Labels extends Vue{
-    tags = store.tagList;
+    get tags(){
+      return store.state.tagList;
+    }
+
+    beforeCreate(){
+      this.$store.commit('fetchTags')
+    }
     createdTag(){
-      store.createdTag()
+      this.$store.commit('createdTag')
     }
   }
 </script>

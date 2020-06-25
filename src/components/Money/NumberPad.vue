@@ -22,7 +22,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -52,7 +51,6 @@
         return;
       }
       this.output += input;
-
     }
 
     cleanContent() {
@@ -209,7 +207,6 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-
   .numberPad {
     > .output {
       @extend %innerShadow;
@@ -226,7 +223,6 @@
         margin-right: -3px;
         margin-bottom: 1px;
         @extend %cleanFix;
-
         > button {
           font-size: 18px;
           width: 25%;
@@ -245,5 +241,4 @@
       }
     }
   }
-
 </style>

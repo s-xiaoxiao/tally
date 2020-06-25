@@ -18,8 +18,7 @@
 
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/store2'
-
+  import store from '@/store/index'
 
 
   // const version = window.localStorage.getItem('version') || '0';
@@ -38,6 +37,12 @@
     components: {Tags, Types,FormItem, NumberPad}
   })
   export default class Money extends Vue {
+    created() {
+      this.$store.commit('fetchRecords');
+    }
+    get tagList(){
+      return store.state.tagList
+    }
     record: RecordItem = {
       tags: [],
       notes: '',
@@ -58,11 +63,11 @@
       this.record.amount = value;
     }
     saveRecord(){
-      const tags = store.tagList.map(t=> t.name)
+      const tags = this.tagList.map(t=> t.name)
       if(tags.indexOf(this.record.tags[0]) < 0){
         window.alert('请选择标签')
       }else{
-        store.createRecord(this.record)
+        this.$store.commit('createRecord',this.record);
       }
     }
   }
