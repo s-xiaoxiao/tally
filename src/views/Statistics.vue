@@ -21,9 +21,9 @@
   }
   ::v-deep .interval-tabs-item{
     background: rgb(222,221,221);
-    height: 32px !important;
-    line-height:32px !important;
-    font-size: 14px !important;
+    height: 32px;
+    line-height:32px;
+    font-size: 14px;
     &.selected{
       background: rgb(197,196,196);
       &::after{
@@ -36,13 +36,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import Types from '@/components/Money/Types.vue';
   import Tabs from '@/components/Tabs.vue';
   import recordTypeList from '@/constants/recordTypeList';
   import intervalList from '@/constants/intervalList';
 
   @Component({
-    components: {Tabs, Types}
+    components: {Tabs}
   })
   export default class Statistics extends Vue {
     type = '-';
