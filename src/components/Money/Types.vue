@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type === '-' && 'selected'"
+      <li :class="{[classPrefix+'-item']:classPrefix,selected:type === '-' }"
           @click="selectType('-')">支出
       </li>
-      <li :class="type === '+' && 'selected'"
+      <li :class="{[classPrefix+'-item']:classPrefix,selected:type === '+' }"
           @click="selectType('+')">收入
       </li>
     </ul>
@@ -19,7 +19,8 @@
   export default class Types extends Vue {
      // ‘-’ 支出 ‘+’ 收入
 
-    @Prop() readonly type!: string;
+    @Prop(String) readonly type!: string;
+    @Prop(String) readonly classPrefix?: string;
     //Prop 告诉vue xxx 不是data 是prop
     //Number 告诉 vue 运行时 xxx是Number类型
     //xxx 属性名
@@ -60,7 +61,6 @@
     display: flex;
     text-align: center;
     font-size: 24px;
-
     > li {
       width: 50%;
       height: 64px;
@@ -69,7 +69,6 @@
       align-items: center;
       justify-content: center;
       position: relative;
-
       &.selected::after {
         position: absolute;
         content: '';
