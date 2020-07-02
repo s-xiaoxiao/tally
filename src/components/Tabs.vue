@@ -25,9 +25,7 @@
 
     @Prop(String) readonly classPrefix?: string;
 
-    created() {
-      console.log(this.value);
-    }
+
 
     liClass(item: DataSourceItem) {
       return {
